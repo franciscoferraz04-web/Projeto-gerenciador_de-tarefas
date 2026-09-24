@@ -1,0 +1,71 @@
+
+#botao{
+    background-color: cornflowerblue;
+    color: aliceblue;
+    font-size: medium;
+    width: 200px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+#botao:hover{
+    background-color: blue;
+    transition-delay: 100ms;
+}
+form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid black;
+    background-color: white;
+    min-height: 410px;
+    width: 460px;
+    gap: 10px;
+    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1);
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    font-family:arial;
+    background-color:rgb(247, 247, 231);
+}
+label{
+    display: block;
+    text-align: center;
+}
+#filtro{
+    display: flex;
+    background-color: white;
+    border: 1px solid black;
+    gap: 10px;
+    min-height: 410px;
+    width: 460px;
+    box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: center;
+}
+input, select{
+    border: 1px solid black;
+    background-color: white;
+    height: 30px;
+    width: 350px;
+    border-radius: 3px;
+}
+#descricao{
+    height: 60px;
+    width: 350px;
+}
+#qtdTarefas{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    font-size: medium;
+    gap: 10px;
+}
+

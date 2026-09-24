@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <form>
+        <h2>Adicionar tarefa</h2>
+        <div>
+            <label for="tarefa">Tarefa:</label>
+            <input id="tarefa" type="text" name="tarefa" placeholder="Digite a tarefa">
+        </div>
+
+        <div>
+            <label>Descrição:</label>
+            <input id="descricao" type="text" name="descricao" placeholder="Digite a descrição">
+        </div>
+
+        <div>
+            <label for="prioridade">Prioridade:</label>
+            <select name="prioridade" id="prioridade">
+                <option value="" disabled selected hidden>Selecione a prioridade</option>
+                <option value="alta">Alta</option>
+                <option value="media">Média</option>
+                <option value="baixa">Baixa</option>
+            </select>
+        </div>
+        <div>
+            <label for="data">Data de conclusão da tarefa:</label>
+            <input type="date" name="data" id="data">
+        </div>
+        <br>
+        <button id="botao" type="submit">Adicionar</button>
+    </form>
+
+    <div id="filtro">
+        <h3>Filtro das tarefas</h3>
+            <div id="qtdTarefas">
+                <div class="status-tarefa">
+                    <p style="font-weight: bold;">Total tarefas: </p> 
+                    <p>0</p>
+                </div>
+                <div class="status-tarefa">
+                    <p style="color: red; font-weight: bold;">Tarefas pendentes:</p> 
+                    <p>0</p>
+                </div>
+                <div class="status-tarefa">
+                    <p style="color: green; font-weight: bold;">Tarefas concluídas:</p> 
+                    <p>0</p>
+                </div>
+            </div>
+
+        <div>
+        <label for="filtroAplicacao">Situação:</label>
+        <select name="filtroAplicacao" id="filtroAplicacao">
+            <option value="Todas">Todas</option>
+            <option value="Pendentes">Pendentes</option>
+            <option value="concluidas">Concluídas</option>
+        </select>
+        </div>
+
+        <div>
+        <label for="categoria">Categoria:</label>
+        <select name="categoria" id="categoria">
+            <option value="Todas">Todas</option>
+            <option value="trabalho">Trabalho</option>
+            <option value="estudo">Estudo</option>
+            <option value="pessoal">Pessoal</option>
+            <option value="pessoal">Outros</option>
+        </select>
+        </div>
+
+        <br>
+
+        <div>
+            <p style="color: dimgray; opacity: 0.6;">Nenhuma tarefa adicionada</p>
+        </div>
+    </div>
+
+
+    <script src="js/script.js"></script>
+</body>
+</html>
