@@ -10,6 +10,7 @@ console.log(formulario)
 
 formulario[0].addEventListener("submit", (e) => {
     const tarefa = {};
+    tarefa.id=crypto.randomUUID();
     tarefa.titulo = document.getElementById('tarefa').value;
     tarefa.descricao = document.getElementById('descricao').value;
     tarefa.prioridade = document.getElementById('prioridade').value;

@@ -16,9 +16,9 @@
 
         <div>
             <label>Descrição:</label>
-            <input id="descricao" type="text" name="descricao" placeholder="Digite a descrição">
+            <textarea name="descricao" id="descricao" placeholder="Digite a descrição"></textarea>
         </div>
-
+        <br>
         <div>
             <label for="prioridade">Prioridade:</label>
             <select name="prioridade" id="prioridade">
@@ -28,9 +28,19 @@
                 <option value="baixa">Baixa</option>
             </select>
         </div>
+        
         <div>
-            <label for="data">Data de conclusão da tarefa:</label>
+            <label for="data">Data de conclusão:</label>
             <input type="date" name="data" id="data">
+        </div>
+        <div>
+            <label for="status">Status da tarefa:</label>
+            <select name="status" id="status">
+                <option value="" disabled selected hidden>Selecione o status</option>
+                <option value="afazer">A fazer</option>
+                <option value="andamento">Em andamento</option>
+                <option value="concluido">Concluido</option>
+            </select>
         </div>
         <br>
         <button id="botao" type="submit">Adicionar</button>
@@ -77,6 +87,10 @@
 
         <div>
             <p style="color: dimgray; opacity: 0.6;">Nenhuma tarefa adicionada</p>
+        </div>
+
+        <div>
+            <label for="tarefa">Tarefa1</label>
         </div>
     </div>
 
