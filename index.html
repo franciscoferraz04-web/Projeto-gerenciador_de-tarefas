@@ -18,7 +18,17 @@
             <label>Descrição:</label>
             <textarea name="descricao" id="descricao" placeholder="Digite a descrição"></textarea>
         </div>
-        <br>
+        <br><br>
+        <div>
+            <label for="categoria">Categoria:</label>
+            <select name="categoria" id="categoria">
+            <option value="" disabled selected hidden>Selecione a categoria da sua tarefa</option>
+            <option value="trabalho">Trabalho</option>
+            <option value="estudo">Estudo</option>
+            <option value="pessoal">Pessoal</option>
+            <option value="pessoal">Outros</option>
+        </select>
+        </div>
         <div>
             <label for="prioridade">Prioridade:</label>
             <select name="prioridade" id="prioridade">
@@ -89,8 +99,18 @@
             <p style="color: dimgray; opacity: 0.6;">Nenhuma tarefa adicionada</p>
         </div>
 
-        <div>
-            <label for="tarefa">Tarefa1</label>
+        <div id="bloco-tarefa">
+            <details>
+                <summary> 
+                    <button class="abrirTarefa">➕</button> 
+                    <button class="editarTarefa">✏️</button> 
+                    <button class="excluiTarefa">🗑️</button>
+                </summary>
+                    <p><strong>Descrição:</strong>Fazer Trabalho</p>
+                    <p><strong>Prioridade:</strong>alta</p>
+                    <p><strong>Data:</strong>2026-10-05</p>
+                    <p><strong>Status:</strong>afazer</p>
+            </details>
         </div>
     </div>
 
