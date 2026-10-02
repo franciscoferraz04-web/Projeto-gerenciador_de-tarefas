@@ -26,7 +26,7 @@
             <option value="trabalho">Trabalho</option>
             <option value="estudo">Estudo</option>
             <option value="pessoal">Pessoal</option>
-            <option value="pessoal">Outros</option>
+            <option value="outros">Outros</option>
         </select>
         </div>
         <div>
@@ -64,7 +64,7 @@
                     <p>0</p>
                 </div>
                 <div class="status-tarefa">
-                    <p style="color: red; font-weight: bold;">Tarefas pendentes:</p> 
+                    <p style="color: red; font-weight: bold;">Tarefas pendentes:  </p> 
                     <p>0</p>
                 </div>
                 <div class="status-tarefa">
@@ -76,42 +76,26 @@
         <div>
         <label for="filtroAplicacao">Situação:</label>
         <select name="filtroAplicacao" id="filtroAplicacao">
-            <option value="Todas">Todas</option>
-            <option value="Pendentes">Pendentes</option>
+            <option value="todas">Todas</option>
+            <option value="pendentes">Pendentes</option>
             <option value="concluidas">Concluídas</option>
         </select>
         </div>
 
         <div>
-        <label for="categoria">Categoria:</label>
-        <select name="categoria" id="categoria">
-            <option value="Todas">Todas</option>
+        <label for="filtroCategoria">Categoria:</label>
+        <select name="filtroCategoria" id="filtroCategoria">
+            <option value="todas">Todas</option>
             <option value="trabalho">Trabalho</option>
             <option value="estudo">Estudo</option>
             <option value="pessoal">Pessoal</option>
-            <option value="pessoal">Outros</option>
+            <option value="outros">Outros</option>
         </select>
         </div>
 
         <br>
 
-        <div>
-            <p style="color: dimgray; opacity: 0.6;">Nenhuma tarefa adicionada</p>
-        </div>
-
-        <div id="bloco-tarefa">
-            <details>
-                <summary> 
-                    <button class="abrirTarefa">➕</button> 
-                    <button class="editarTarefa">✏️</button> 
-                    <button class="excluiTarefa">🗑️</button>
-                </summary>
-                    <p><strong>Descrição:</strong>Fazer Trabalho</p>
-                    <p><strong>Prioridade:</strong>alta</p>
-                    <p><strong>Data:</strong>2026-10-05</p>
-                    <p><strong>Status:</strong>afazer</p>
-            </details>
-        </div>
+        <div id="bloco-tarefa"></div>
     </div>
 
 

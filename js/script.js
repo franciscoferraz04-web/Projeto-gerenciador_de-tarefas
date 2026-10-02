@@ -1,7 +1,10 @@
 const formulario=document.getElementsByTagName("form")[0];
 const blocoFiltro=document.querySelector("#filtro");
 const inputData=document.getElementById("data");
-const blocoTarefa=document.querySelector("#bloco-tarefa")
+const blocoTarefa=document.querySelector("#bloco-tarefa");
+
+const filtroSituacao=document.getElementById("filtroAplicacao");
+const filtroCategoria=document.getElementById("filtroCategoria");
 
 let idTarefaEmEdicao=null;
 
@@ -12,10 +15,15 @@ function adicionarTarefa(e){
         return;
     }
 
+    if(!validarData()){
+        return;
+    }
+
     const tarefa={};
 
     tarefa.titulo = document.getElementById('tarefa').value;
     tarefa.descricao = document.getElementById('descricao').value;
+    tarefa.categoria= document.getElementById('categoria').value;
     tarefa.prioridade = document.getElementById('prioridade').value;
     tarefa.data = document.getElementById('data').value;    
     tarefa.status = document.getElementById('status').value;
@@ -29,6 +37,7 @@ function adicionarTarefa(e){
         if(indice !== -1){
             tarefas[indice].titulo = tarefa.titulo;
             tarefas[indice].descricao=tarefa.descricao;
+            tarefas[indice].categoria=tarefa.categoria
             tarefas[indice].prioridade=tarefa.prioridade;
             tarefas[indice].data=tarefa.data;
             tarefas[indice].status=tarefa.status;
@@ -54,30 +63,69 @@ function exibirTarefa(){
 
     const tarefas=JSON.parse(localStorage.getItem("tarefas")) || [];
 
-    tarefas.forEach((tarefa) => {
+    if(tarefas.length === 0){
+        blocoTarefa.innerHTML="<p style='text-align: center; color:gray;'>Nenhuma tarefa cadastrada.</p>";
+        atualizarContadores();
+        return;
+    }
+
+    const situacao=filtroSituacao.value;
+    const categoria=filtroCategoria.value;
+
+    const tarefasFiltradas=tarefas.filter((tarefa) =>{
+        let passouSituacao=true;
+        let passouCategoria=true;
+
+        //FILTRO DE SITUAÇÃO
+        if(situacao === "pendentes"){
+            passouSituacao=tarefa.status !== "concluido";
+        }
+        if(situacao === "concluidas"){
+            passouSituacao=tarefa.status === "concluido";
+        }
+        //FILTRO DE CATEGORIA
+        if(categoria !== "todas"){
+            passouCategoria=tarefa.categoria === categoria;
+        }
+        return passouCategoria && passouSituacao;
+    });
+
+    if(tarefasFiltradas.length === 0){
+        blocoTarefa.innerHTML="<p style='text-align: center; font-weight: bold;'>Nenhuma tarefa encontrada.</p>";
+        atualizarContadores();
+        return;
+    }
+
+    tarefasFiltradas.forEach((tarefa) => {
         const bloco = document.createElement("div");
 
         bloco.classList.add("tarefa");
-
         bloco.dataset.id=tarefa.id;
+        
 
         bloco.innerHTML = `
-            <details>
-                <summary>
+            <div class="cabecalho-tarefa">
+                <span class="titulo-tarefa">
                     ${tarefa.titulo}
-                </summary>
-                
+                </span>
+
+                <div class="botoes-tarefa">
+                    <button class="abrirTarefa">➕</button>
+                    <button class="editarTarefa">✏️</button>
+                    <button class="excluiTarefa">🗑️</button>
+                </div>
+            </div>
+
+            <div class="detalhes-tarefa" style="display: none;">
                 <p><strong>Descrição:</strong>${tarefa.descricao}</p>
+                <p><strong>Categoria:</strong>${tarefa.categoria}</p>
                 <p><strong>Prioridade:</strong>${tarefa.prioridade}</p>
                 <p><strong>Data:</strong>${tarefa.data}</p>
                 <p><strong>Status:</strong>${tarefa.status}</p>
-                
-                <button class="editarTarefa">✏️ Editar</button>
-                <button class="excluiTarefa">🗑️ Excluir</button>
-            </details>
-            `;
-            blocoTarefa.appendChild(bloco);
+            </div>`;
+        blocoTarefa.appendChild(bloco);
     });
+    atualizarContadores();
 }
 
 function validarFormulario(){
@@ -128,6 +176,58 @@ function validarFormulario(){
     return formularioValido;
 }
 
+function atualizarContadores(){
+    const tarefas=JSON.parse(localStorage.getItem("tarefas")) || [];
+
+    const total = tarefas.length;
+
+    const pendentes = tarefas.filter((tarefa)=> tarefa.status !== "concluido").length;
+
+    const concluidas = tarefas.filter((tarefa)=> tarefa.status === "concluido").length;
+
+    const contadores = document.querySelectorAll("#qtdTarefas .status-tarefa p");
+
+    contadores[1].textContent=total;
+    contadores[3].textContent=pendentes;
+    contadores[5].textContent=concluidas;
+}
+
+function validarData(){
+    const dataSelecioada = document.getElementById("data").value;
+
+    if(dataSelecioada === ""){
+        return true;
+    }
+
+    const hoje=new Date();
+    hoje.setHours(0,0,0,0);
+
+    const data = new Date(dataSelecioada + "T00:00:00");
+
+    if(data < hoje){
+        const campo=document.getElementById("data");
+
+        campo.style.border="2px solid red";
+
+        const mensagemAnterior=campo.parentElement.querySelector(".mensagemErro");
+
+        if(mensagemAnterior){
+            mensagemAnterior.remove();
+        }
+
+        const mensagem=document.createElement("small");
+        mensagem.classList.add("mensagemErro");
+        mensagem.textContent="A data não pode ser anterior a hoje.";
+        mensagem.style.color="red";
+        mensagem.style.display="block";
+
+        campo.parentElement.appendChild(mensagem);
+
+        return false;
+    }
+    return true;
+}
+
 blocoTarefa.addEventListener("click",(e)=>{
     const alvo = e.target;
 
@@ -158,15 +258,15 @@ blocoTarefa.addEventListener("click",(e)=>{
     if(alvo.classList.contains("abrirTarefa")){
         e.preventDefault();
 
-        const detalhes=tarefaHTML.querySelector("details");
+        const detalhes=tarefaHTML.querySelector(".detalhes-tarefa");
 
 
-        if(detalhes.hasAttribute("open")){
-            detalhes.removeAttribute("open");
-            alvo.textContent="➕";
-        }else{
-            detalhes.setAttribute("open","");
+        if(detalhes.style.display==="none"){
+            detalhes.style.display="block";
             alvo.textContent="➖";
+        }else{
+            detalhes.style.display="none";
+            alvo.textContent="➕";
         }
     }
     
@@ -181,6 +281,7 @@ blocoTarefa.addEventListener("click",(e)=>{
         if(tarefasParaEditar){
             document.getElementById("tarefa").value=tarefasParaEditar.titulo;
             document.getElementById("descricao").value=tarefasParaEditar.descricao;
+            document.getElementById("categoria").value=tarefasParaEditar.categoria;
             document.getElementById("prioridade").value=tarefasParaEditar.prioridade;
             inputData.value = tarefasParaEditar.data;
             document.getElementById("status").value=tarefasParaEditar.status;
@@ -195,3 +296,7 @@ blocoTarefa.addEventListener("click",(e)=>{
 formulario.addEventListener("submit",adicionarTarefa);
 
 document.addEventListener("DOMContentLoaded",exibirTarefa);
+
+filtroSituacao.addEventListener("change", exibirTarefa);
+
+filtroCategoria.addEventListener("change", exibirTarefa);
